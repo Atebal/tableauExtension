@@ -43,8 +43,9 @@ var worksheet4 = tableau.extensions.dashboardContent.dashboard.worksheets.find(w
     });
 
     let ColumnNames=new Array();
-    
-    tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === worksheetsArray[0]).getUnderlyingDataAsync()
+    debugger;
+   // tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === worksheetsArray[0]).getUnderlyingDataAsync()
+   tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === worksheetsArray[0]).getUnderlyingTableDataAsync()
     .then(dataTable => {
        let field = dataTable.columns.forEach(function(column_name,index)
       {
@@ -92,7 +93,7 @@ tempArray.sort(function(a, b){
   return a.level-b.level
 })
 
-
+debugger;
 for(var j=0;j<tempArray.length-1;j++)
 {
 
@@ -143,6 +144,7 @@ for(var k=1;k<tableData.length;k++)
         tableData[i].target_artifact.push(tableData[j].source_artifact);
         }}}
     */
+   
 
 tableData.sort(function(a, b){
     return a.level-b.level
@@ -191,12 +193,13 @@ else
 
 
 //Draw chart by Atebal
-
+debugger;
 let graphData=tableData;
 
     /*Atebal work ends here */
 
     function init(graphData, maxLen) {
+        debugger;
       var graph = new joint.dia.Graph;
 
       let max_level = graphData[0].level;
@@ -219,26 +222,27 @@ let graphData=tableData;
           window['level' + `${k}`] = 0;
       }
 
-      let posY, posX, levelPosX = 100, boxArray = [];
+      let posY, posX, levelPosX = 120, boxArray = [];
 
       for (let i = 0; i < graphData.length; i++) {
           if (graphData[i].level == 0) {
               posX = max_level * 320 - levelPosX;
               if (level0 == 0) {
-                  posY = 20;
+                  posY = 50;
               } else {
                   if (graphData[i - 1].level == graphData[i].level) {
                       posY = posY + Math.floor(Math.random() * (160 - 140 + 1) + 180);
                   } else {
-                      posY = 30;
+                      posY = 50;
                   }
               }
               level0++;
           } else {
+              debugger;
               if (graphData[i - 1].level == graphData[i].level) {
                   posY = posY + Math.floor(Math.random() * (160 - 140 + 1) + 180);
               } else {
-                  posY = 20;
+                  posY = 50;
               }
               posX = (max_level * 320) - (graphData[i].level * 320);
           }
@@ -270,7 +274,7 @@ let graphData=tableData;
               window['link' + `${j}`].source(window[graphData[j].source_artifact]);
               window['link' + `${j}`].target(window[graphData[j].target_artifact]);
               window['link' + `${j}`].router('manhattan');
-              window['link' + `${j}`].connector('smooth');
+              window['link' + `${j}`].connector('jumpover');
               window['link' + `${j}`].attr({
                   line: {
                       stroke: '#222222',
