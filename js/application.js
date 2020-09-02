@@ -44,8 +44,8 @@ var worksheet4 = tableau.extensions.dashboardContent.dashboard.worksheets.find(w
 
     let ColumnNames=new Array();
     
-    //tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === worksheetsArray[0]).getUnderlyingDataAsync()
-    tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === worksheetsArray[0]).getUnderlyingTablesAsync()
+tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === worksheetsArray[0]).getUnderlyingDataAsync()
+    //tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === worksheetsArray[0]).getUnderlyingTablesAsync()
     .then(dataTable => {
        let field = dataTable.columns.forEach(function(column_name,index)
       {
