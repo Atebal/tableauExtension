@@ -7,7 +7,7 @@
     <author name="Your Name" email="Your Email" organization="Your Org" website="https://www.tableaumagic.com"/>
     <min-api-version>1.0</min-api-version>
     <source-location>
-      <url>https://atebal.github.io/tableauExtension/</url>
+      <url>http://localhost:8080/index.html</url>
     </source-location>
     <icon></icon>
     <permissions>

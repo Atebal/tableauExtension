@@ -25,19 +25,7 @@ var dataTosend;
 
 /* Atebal work start from here*/
 
-
-var worksheet4 = tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === "worksheetData");
- worksheet4.getUnderlyingTablesAsync().then(logicalTables => {
-   debugger;
-     worksheet4.getUnderlyingTableDataAsync(logicalTables[0].id).then(dataTable => {
-       debugger;
-       // process the dataTable...
-     });
- });
-
-
-     debugger;
-     var worksheetsArray
+    var worksheetsArray
     worksheets.forEach(function (worksheet) {
        worksheetsArray=[worksheet.name];
     });
@@ -49,8 +37,7 @@ tableau.extensions.dashboardContent.dashboard.worksheets.find(w => w.name === wo
     .then(dataTable => {
        let field = dataTable.columns.forEach(function(column_name,index)
       {
-     
-               var colnames=new Object()
+            var colnames=new Object()
               {
                 colnames.columnname=column_name.fieldName,
                 colnames.index=index
@@ -68,9 +55,7 @@ for (let data of dataTable.data) {
       totallevels=totallevels;
    else 
       totallevels=parseInt(data[2].value);
-      var targetBox="";
-      var sourceBox="";
-            var tr=new Object()
+         var tr=new Object()
             {
               
               tr.artifact_name=data[0].value,
@@ -93,8 +78,32 @@ tempArray.sort(function(a, b){
   return a.level-b.level
 })
 
-debugger;
-for(var j=0;j<tempArray.length-1;j++)
+tempArray.forEach(function(data)
+    {
+        var tr=new Object()
+        {
+          
+            tr.artifact_name=data.artifact_name,
+            tr.id=data.id,
+            tr.level=parseInt(data.level),
+            tr.source_column_name=data.source_column_name,
+            tr.source_schema=data.source_schema,
+            tr.source_table_name=data.source_table_name,
+            tr.target_column_name=data.target_column_name,
+            tr.target_schema=data.target_schema,
+            tr.target_table_name=data.target_table_name
+            tr.source_artifact=data.source_schema+"#"+data.source_table_name+"#"+data.source_column_name,
+            tr.target_artifact="",
+            tr.label=data.artifact_name
+           
+             
+        };
+        tableData.push(tr);
+    }
+)
+
+
+/*for(var j=0;j<tempArray.length-1;j++)
 {
 
     var tr=new Object()
@@ -116,8 +125,11 @@ for(var j=0;j<tempArray.length-1;j++)
          
     };
     tableData.push(tr);
-}
+}*/
 
+tableData.sort(function(a, b){
+    return a.level-b.level
+  })
 
 for(var j=0;j<tableData.length-1;j++)
 {
@@ -149,9 +161,6 @@ for(var k=1;k<tableData.length;k++)
 tableData.sort(function(a, b){
     return a.level-b.level
   })
-//var josndata2=JSON.stringify(tableData);
-
-
 
 var tempLength=0;
 for(var i=0;i<=totallevels;i++)
@@ -193,6 +202,7 @@ else
 
 
 //Draw chart by Atebal
+
 debugger;
 let graphData=tableData;
 
@@ -222,7 +232,7 @@ let graphData=tableData;
           window['level' + `${k}`] = 0;
       }
 
-      let posY, posX, levelPosX = 120, boxArray = [];
+      let posY, posX, levelPosX = 20, boxArray = [];
 
       for (let i = 0; i < graphData.length; i++) {
           if (graphData[i].level == 0) {
@@ -257,7 +267,7 @@ let graphData=tableData;
               },
 
               attrs: { rect: { fill: 'transparent' } },
-              content: "<table><tr><th>" + graphData[i].source_artifact + "</th></tr><tr><td>" + graphData[i].source_schema + "</td></tr><tr><td>" + graphData[i].source_table_name + "</td></tr><tr><td>" + graphData[i].source_column_name + "</td></tr></table>"
+              content: "<table><tr><th>" + graphData[i].target_table_name + "</th></tr><tr><td>" + graphData[i].target_schema + "</td></tr><tr><td>" + graphData[i].target_column_name + "</td></tr></table>"
 
           });
           boxArray.push(window[graphData[i].source_artifact]);
@@ -337,18 +347,6 @@ let graphData=tableData;
 
 /*---End chart by Atebal-----*/
 
-
-
-      /*var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: labels, // This now comes from Tableau
-          datasets: [{
-            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-            data: data // This now comes from Tableau
-          }]
-        }
-      }); */
-    });
+   });
   }
 })();
