@@ -267,8 +267,9 @@ let graphData=tableData;
               },
 
               attrs: { rect: { fill: 'transparent' } },
-              content: "<table><tr><th>" + graphData[i].target_table_name + "</th></tr><tr><td>" + graphData[i].target_schema + "</td></tr><tr><td>" + graphData[i].target_column_name + "</td></tr></table>"
-
+             
+              //content: "<table><tr><th>" + graphData[i].target_table_name + "</th></tr><tr><td>" + graphData[i].target_schema + "</td></tr><tr><td>" + graphData[i].target_column_name + "</td></tr></table>"
+              content: `<table><tr><th class="cut-text" title="${graphData[i].target_table_name}">` + graphData[i].target_table_name + "</th></tr><tr class='font-12'><td>" + graphData[i].target_schema + "</td></tr><tr class='font-12'><td>" + graphData[i].target_column_name + "</td></tr></table>"
           });
           boxArray.push(window[graphData[i].source_artifact]);
           //window[graphData[i].artifact_name].addTo(graph);
